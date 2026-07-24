@@ -379,6 +379,87 @@
   /* ---------- CHECKPOINT ---------- */
   .checkpoint-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:8px; }
   @media (max-width:860px){ .checkpoint-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- REGUA CTA + VALIDAÇÃO ---------- */
+  .regua-cta-btn{
+    display:inline-flex; align-items:center; gap:8px; margin:4px 0 28px;
+    background:var(--navy); color:#fff; font-family:'Poppins',sans-serif; font-size:13px; font-weight:700;
+    padding:11px 20px; border-radius:999px; text-decoration:none; transition:background .2s;
+    border:none; cursor:pointer;
+  }
+  .regua-cta-btn:hover{ background:var(--purple-deep); }
+
+  /* ---------- REGUA PAGE (overlay, fora do flow) ---------- */
+  .regua-page{
+    display:none; position:fixed; inset:0; background:var(--offwhite); z-index:9999; overflow-y:auto;
+  }
+  .regua-page.show{ display:block; }
+  .regua-page-top{
+    position:sticky; top:0; background:var(--navy); padding:16px 24px; z-index:10;
+  }
+  .regua-back-btn{
+    font-family:'Poppins',sans-serif; font-size:12.5px; font-weight:600; color:#D9D5EE;
+    background:none; border:none; cursor:pointer; padding:0; display:flex; align-items:center; gap:6px;
+  }
+  .regua-back-btn:hover{ color:#fff; }
+
+  /* ---------- OVERLAY: PÁGINA DE VALIDAÇÃO (fora do flow) ---------- */
+  .overlay-page{
+    display:none; position:fixed; inset:0; z-index:1000; background:var(--offwhite);
+    overflow-y:auto; -webkit-overflow-scrolling:touch;
+  }
+  .overlay-page.open{ display:block; }
+  .overlay-topbar{
+    position:sticky; top:0; z-index:5; background:var(--navy); padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .overlay-topbar .brand{ display:flex; align-items:center; gap:10px; }
+  .overlay-topbar .brand img{ width:22px; height:auto; }
+  .overlay-topbar .brand span{ font-weight:700; font-size:13.5px; color:#fff; }
+  .overlay-topbar .brand span em{ font-style:normal; font-weight:400; color:#A9A6BC; }
+  .overlay-close{
+    background:none; border:1px solid rgba(255,255,255,0.25); color:#fff; font-family:'Poppins',sans-serif;
+    font-size:12.5px; font-weight:600; padding:8px 16px; border-radius:999px; cursor:pointer; transition:background .2s;
+  }
+  .overlay-close:hover{ background:rgba(255,255,255,0.1); }
+  .overlay-body{ max-width:900px; margin:0 auto; padding:0 24px 100px; }
+
+  .regua-progress-card{ background:var(--lav); border-radius:14px; padding:18px 22px; margin:8px 0 30px; }
+  .regua-progress-label{ font-size:12.5px; color:var(--muted); margin:0; }
+
+  .voz-legend{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:4px; }
+  @media (max-width:860px){ .voz-legend{ grid-template-columns:1fr 1fr; } }
+  .voz-item{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+  .voz-item .voz-emoji{ font-size:18px; margin-bottom:6px; display:block; }
+  .voz-item h4{ font-size:12.5px; font-weight:700; color:var(--ink); margin:0 0 4px; }
+  .voz-item p{ font-size:11.5px; color:var(--muted); line-height:1.5; margin:0; }
+
+  .regua-group{ margin-top:34px; }
+  .regua-group-head{ margin-bottom:14px; }
+  .regua-group-head h3{ font-size:17px; font-weight:700; color:var(--ink); margin:0 0 4px; }
+  .regua-group-head p{ font-size:12.5px; color:var(--muted); margin:0; }
+
+  .regua-msg{
+    background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin-bottom:12px;
+    cursor:pointer; transition:border-color .2s, background .2s;
+  }
+  .regua-msg.validado{ border-color:var(--green); background:#F3FBF7; }
+  .regua-msg-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:8px; }
+  .regua-msg-momento{ font-size:12.5px; font-weight:700; color:var(--ink); flex:1; }
+  .regua-voz-pill{
+    display:inline-flex; align-items:center; gap:4px; font-size:10.5px; font-weight:700; padding:3px 9px;
+    border-radius:999px; white-space:nowrap; flex-shrink:0;
+  }
+  .regua-check{
+    width:22px; height:22px; border-radius:7px; border:2px solid var(--green); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; transition:background .2s;
+  }
+  .regua-check svg{ opacity:0; transition:opacity .15s; width:13px; height:13px; }
+  .regua-msg.validado .regua-check{ background:var(--green); }
+  .regua-msg.validado .regua-check svg{ opacity:1; }
+  .regua-msg-text{ font-size:13.5px; color:var(--ink); line-height:1.6; font-style:italic; margin:0; }
+  .regua-msg-note{ margin-top:10px; background:var(--lav); border-radius:10px; padding:10px 14px; font-size:12px; color:var(--muted); line-height:1.5; }
+  .regua-msg-note b{ color:var(--purple); font-style:normal; }
   .checkpoint-card{ background:#fff; border:1px solid #EFE2B8; border-radius:16px; padding:24px 22px; }
   .checkpoint-q{
     display:inline-block; font-family:'Poppins',sans-serif; font-size:10.5px; font-weight:700; letter-spacing:0.06em;
@@ -653,6 +734,8 @@
       <span class="owner-pill owner-vincla"><span class="owner-dot"></span>Vincla</span>
     </div>
 
+    <button type="button" id="openReguaValidacao" class="regua-cta-btn">📋 Validação dos textos das réguas →</button>
+
     <div id="phase-list"></div>
 
     <div class="jr-parallel">
@@ -672,7 +755,6 @@
   </div>
 </section>
 
-<!-- ============ 4/6 INICIATIVAS DE IMPULSIONAMENTO ============ -->
 <section id="iniciativas-campanhas" class="light" style="background:#F4F1FB;">
   <div class="wrap">
     <div class="sec-head-row">
@@ -1008,6 +1090,7 @@ const fernandaTodos = [
   { text: 'Criar Perfil da Empresa no Google', date: 'até 25/07', status: 'progress' },
   { text: 'Criar perfil no Instagram', date: 'até 25/07', status: 'done' },
   { text: 'Configurar o Meta Business Suite', date: 'até 01/08' },
+  { text: 'Configurar as mensagens automáticas do WhatsApp Business', date: 'até 20/08' },
   { text: 'Coletar depoimentos das pessoas', date: 'até 31/08' },
   { text: 'Consolidar clientes (com base no padrão que a Vincla enviar)', date: 'até 01/08' },
   { text: 'Validar todos os textos das réguas de relacionamento', date: 'até 01/08' },
@@ -1225,6 +1308,171 @@ function onScroll(){
 }
 window.addEventListener('scroll', onScroll, {passive:true});
 onScroll();
+</script>
+
+<!-- ============ PÁGINA OVERLAY: VALIDAÇÃO DOS TEXTOS DAS RÉGUAS ============ -->
+<div id="reguaPage" class="regua-page">
+  <div class="regua-page-top">
+    <button type="button" id="reguaBackBtn" class="regua-back-btn">← Voltar para a apresentação</button>
+  </div>
+  <div class="wrap" style="padding-top:36px;">
+    <div class="sec-head-row">
+      <div class="sec-head" style="margin-bottom:8px;">
+        <span class="kicker" style="color:var(--purple);">Réguas de relacionamento</span>
+        <h2>Validação dos textos</h2>
+        <p>Textos por etapa da jornada, prontos para a Fernanda revisar e validar. Marque cada mensagem conforme for aprovando.</p>
+      </div>
+      <span class="owner-pill owner-ambos"><span class="owner-dot"></span>Fernanda + Vincla</span>
+    </div>
+
+    <div class="regua-progress-card">
+      <div class="todo-progress-track"><div class="todo-progress-fill" id="reguaFill"></div></div>
+      <p class="regua-progress-label" id="reguaProgressLabel"></p>
+    </div>
+
+    <span class="partner-subhead-featured">As quatro vozes deste documento</span>
+    <p class="partner-lead-in">Cada mensagem é marcada com um destes tipos de voz, que indica quem, ou o quê, deve efetivamente enviá-la.</p>
+    <div class="voz-legend" id="voz-legend-list"></div>
+
+    <div id="regua-groups"></div>
+
+    <span class="partner-subhead-featured" style="margin-top:32px;">Recomendações de implementação</span>
+    <ul class="partner-formats" id="regua-recomendacoes-list"></ul>
+  </div>
+</div>
+
+<script>
+// ---------------- REGUAS DE RELACIONAMENTO (validação, página overlay) ----------------
+const VOZ_INFO = {
+  '🤖': { label: 'Automática real', color: '#2E9E8C' },
+  '⏱️': { label: 'Parece automática', color: 'var(--gold)' },
+  '👩‍💼': { label: 'Secretária / Equipe', color: 'var(--purple)' },
+  '💛': { label: 'Fernanda (voz própria)', color: 'var(--coral)' },
+};
+
+const reguaGroups = [
+  { title: 'Pré-consulta', desc: 'Do primeiro contato até a consulta acontecer.',
+    messages: [
+      { momento: 'Link pré-preenchido, bio do Instagram', voz: '⏱️', texto: 'Oi Fernanda! Vim pelo seu Instagram e queria saber mais sobre como funciona o acompanhamento nutricional com você.' },
+      { momento: 'Link pré-preenchido, site, Doctoralia, Google', voz: '⏱️', texto: 'Oi! Vi seu perfil e quero agendar uma consulta com você.' },
+      { momento: 'Primeiro contato / fora do expediente', voz: '🤖', texto: 'Oi! 🤍 Que bom te ver por aqui. Esse é o WhatsApp da Fernanda Zanateli, nutricionista comportamental. Em breve alguém te responde. Se quiser, já conta um pouco do que você precisa que a gente já direciona certinho.' },
+      { momento: 'Contato fora do horário de atendimento', voz: '🤖', texto: 'Sua mensagem chegou fora do nosso horário de atendimento (seg. a sex., 9h às 18h). Assim que abrirmos, você é a primeira da fila! Se quiser, já conta o motivo do contato para agilizar. 🤍' },
+      { momento: 'Confirmação de agendamento', voz: '⏱️', texto: 'Consulta confirmada! 📅 [dia] às [horário], no formato online. O link de acesso chega até 1h antes do horário. Qualquer imprevisto, é só avisar por aqui.' },
+      { momento: 'Lembrete véspera da consulta', voz: '👩‍💼', texto: 'Passando para lembrar: amanhã, [dia], às [horário], é sua consulta com a Fernanda 🤍 Vale separar um cantinho tranquilo e organizar o que quiser trazer para conversar.' },
+      { momento: 'Lembrete no dia, poucas horas antes', voz: '🤖', texto: 'Hoje é dia de consulta! ⏰ Te esperamos às [horário]. Aqui está o link de acesso: [link]. Até já!' },
+      { momento: 'Primeiro contato de pais de criança com TEA/seletividade', voz: '💛', texto: 'Oi, [nome do responsável]! Fico feliz que você tenha chegado até aqui. Sei como a busca por alguém que realmente entenda de seletividade alimentar pode ser cansativa, e quero que saiba que aqui é um espaço de escuta, sem julgamento, no tempo do seu filho(a). Qualquer dúvida antes da consulta, me chama por aqui. 🤍',
+        nota: 'Ramificação (pais/responsáveis por criança com TEA): quem decide é o responsável, não a criança, por isso esse primeiro contato é sempre na voz da própria Fernanda, e não automático ou da equipe.' },
+    ]},
+  { title: 'Pós-consulta', desc: 'Do fim da consulta até o momento de agendar a próxima.',
+    messages: [
+      { momento: 'Logo após o fim da consulta', voz: '💛', texto: 'Foi muito bom te ouvir hoje 🤍 Obrigada pela confiança em compartilhar sua rotina e suas dificuldades comigo. Qualquer dúvida sobre o que conversamos, pode me chamar por aqui, sem pressa, no seu tempo.' },
+      { momento: 'Envio do plano alimentar e orientações', voz: '👩‍💼', texto: 'Aqui está o seu plano alimentar e as orientações combinadas na consulta de hoje 📎 Qualquer dúvida sobre como aplicar no dia a dia, a Fernanda está por aqui para te ajudar.' },
+      { momento: 'Contato de acompanhamento entre consultas', voz: '💛', texto: 'Passando aqui só para saber: como você está se sentindo com as mudanças que conversamos? 🤍 Não precisa ter feito tudo certinho, só me conta como tem sido.',
+        nota: 'Ramificação (pais de criança com TEA): substituir por algo como "Como [nome da criança] está reagindo às mudanças que combinamos? Conta pra mim os pequenos avanços, mesmo que pareçam pequenos, eles importam."' },
+      { momento: 'Lembrete para agendar a próxima consulta', voz: '⏱️', texto: 'Oi! Já faz um tempinho desde nossa última consulta. Que tal agendarmos o próximo encontro? Me conta os dias que funcionam melhor pra você 📅' },
+      { momento: 'Pesquisa de satisfação (NPS)', voz: '⏱️', texto: 'De 0 a 10, o quanto você recomendaria o acompanhamento com a Fernanda para alguém que você conhece? Sua resposta ajuda a melhorar cada vez mais o cuidado com você. 🤍' },
+    ]},
+  { title: 'Reativação', desc: 'Fluxo de 3 toques para pacientes que pararam de agendar, sempre terminando sem cobrança.',
+    messages: [
+      { momento: '1º toque: inativo há algumas semanas', voz: '💛', texto: 'Oi, [nome]! Faz tempo que a gente não se fala, e você veio à cabeça hoje 🤍 Como você está? Fico curiosa para saber como ficou sua relação com a comida depois do nosso acompanhamento.' },
+      { momento: '2º toque: sem resposta, oferta de retomada', voz: '👩‍💼', texto: 'Vimos aqui que faz alguns meses desde sua última consulta com a Fernanda. Se quiser retomar o acompanhamento, temos horários abertos essa semana. Quer que eu te mostre as opções?' },
+      { momento: '3º toque: encerramento educado do ciclo', voz: '💛', texto: 'Não queremos ser inconvenientes! 🤍 Vamos parar de te lembrar por aqui, mas saiba que a porta está sempre aberta quando você sentir que é hora de voltar a cuidar dessa relação com a comida.' },
+    ]},
+  { title: 'Indicação', desc: 'Para transformar a indicação espontânea em um pedido estruturado, sem soar comercial.',
+    messages: [
+      { momento: 'Após resultado ou marco positivo perceptível', voz: '💛', texto: 'Fico muito feliz em ver sua evolução! 🤍 Se você conhece alguém que também precisa de ajuda para ter uma relação mais leve com a comida, ficaria muito grata se indicasse meu trabalho. Isso me ajuda a chegar em quem mais precisa.' },
+      { momento: 'Agradecimento por indicação recebida', voz: '💛', texto: '[Nome], obrigada por indicar meu trabalho para [nome indicado(a)]! 🤍 Confiança assim não tem preço, e fico muito grata por fazer parte da sua rede de cuidado.' },
+    ]},
+  { title: 'Camada paralela: relacionamento e autoridade', desc: 'Roda por fora da jornada principal, independente da etapa em que cada paciente está.',
+    messages: [
+      { momento: 'Conteúdo bimestral de autoridade (toda a base)', voz: '👩‍💼', texto: 'Novidade por aqui! 📚 A Fernanda preparou um material sobre [tema] para te ajudar a entender melhor sua relação com a comida. Dá uma olhada: [link/anexo]' },
+      { momento: 'Aniversário do paciente', voz: '💛', texto: 'Parabéns, [nome]! 🎉🤍 Que seu novo ano venha com ainda mais leveza na relação com a comida e com você mesma(o). Um abraço da Fernanda!' },
+      { momento: '"1 ano de acompanhamento"', voz: '💛', texto: '[Nome], hoje faz 1 ano que começamos essa caminhada juntas 🤍 Olhando para trás, dá para ver o quanto você evoluiu. Obrigada por confiar em mim nesse processo, seguimos juntas!' },
+    ]},
+  { title: 'Acompanhamento contínuo (produto premium)', desc: 'Convite e boas-vindas para quem entra no espaço de suporte contínuo entre consultas, cobrado à parte.',
+    messages: [
+      { momento: 'Convite para o acompanhamento contínuo (upsell)', voz: '💛', texto: 'Tenho uma novidade que pode te interessar 🤍 Criei um acompanhamento contínuo por aqui, para quem quer mais suporte entre as consultas, pode me mandar fotos do prato, tirar dúvidas na hora, contar como está se sentindo. Quer saber mais?' },
+      { momento: 'Boas-vindas ao acompanhamento contínuo', voz: '💛', texto: 'Seja bem-vinda(o) ao acompanhamento contínuo! 🤍 A partir de agora, esse é nosso espaço para dúvidas, fotos dos pratos e conversas entre as consultas. Fico disponível para te apoiar sempre que precisar.' },
+    ]},
+];
+
+const reguaRecomendacoes = [
+  'Configurar desde já, nas Ferramentas Comerciais do WhatsApp Business, a Saudação e a Ausência (mensagens 🤖 automáticas reais deste documento). São gratuitas.',
+  'Reunir os textos ⏱️ e 👩‍💼 nas Respostas Rápidas do próprio app, para copiar e colar sem precisar redigir a cada envio.',
+  'Reservar as mensagens 💛 para os momentos de fato listados aqui. Usá-las em excesso tira a força delas.',
+  'Ajustar a frequência dos toques de reativação (sugestão inicial: 1º toque em 60 dias de inatividade, 2º toque em 90 dias, encerramento em 120 dias) conforme o volume real de pacientes.',
+];
+
+const vozLegendList = document.getElementById('voz-legend-list');
+Object.entries(VOZ_INFO).forEach(([emoji, info]) => {
+  const el = document.createElement('div');
+  el.className = 'voz-item';
+  el.innerHTML = `<span class="voz-emoji">${emoji}</span><h4>${info.label}</h4>`;
+  vozLegendList.appendChild(el);
+});
+
+const reguaGroupsEl = document.getElementById('regua-groups');
+const reguaFill = document.getElementById('reguaFill');
+const reguaProgressLabel = document.getElementById('reguaProgressLabel');
+let reguaTotal = 0;
+reguaGroups.forEach(g => reguaTotal += g.messages.length);
+
+function updateReguaProgress(){
+  const done = document.querySelectorAll('.regua-msg.validado').length;
+  reguaFill.style.width = (done / reguaTotal * 100) + '%';
+  reguaProgressLabel.textContent = `${done} de ${reguaTotal} textos validados`;
+}
+
+reguaGroups.forEach(g => {
+  const groupEl = document.createElement('div');
+  groupEl.className = 'regua-group';
+  const head = document.createElement('div');
+  head.className = 'regua-group-head';
+  head.innerHTML = `<h3>${g.title}</h3><p>${g.desc}</p>`;
+  groupEl.appendChild(head);
+
+  g.messages.forEach(m => {
+    const info = VOZ_INFO[m.voz];
+    const msgEl = document.createElement('div');
+    msgEl.className = 'regua-msg';
+    msgEl.innerHTML = `
+      <div class="regua-msg-head">
+        <span class="regua-msg-momento">${m.momento}</span>
+        <span class="regua-voz-pill" style="background:${info.color}22; color:${info.color};">${m.voz} ${info.label}</span>
+        <span class="regua-check"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+      <p class="regua-msg-text">"${m.texto}"</p>
+      ${m.nota ? `<div class="regua-msg-note"><b>Nota:</b> ${m.nota}</div>` : ''}
+    `;
+    msgEl.addEventListener('click', () => {
+      msgEl.classList.toggle('validado');
+      updateReguaProgress();
+    });
+    groupEl.appendChild(msgEl);
+  });
+
+  reguaGroupsEl.appendChild(groupEl);
+});
+updateReguaProgress();
+
+const reguaRecList = document.getElementById('regua-recomendacoes-list');
+reguaRecomendacoes.forEach(t => {
+  const li = document.createElement('li');
+  li.textContent = t;
+  reguaRecList.appendChild(li);
+});
+
+// Abrir/fechar a página overlay
+const reguaPage = document.getElementById('reguaPage');
+document.getElementById('openReguaValidacao').addEventListener('click', () => {
+  reguaPage.classList.add('show');
+  reguaPage.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('reguaBackBtn').addEventListener('click', () => {
+  reguaPage.classList.remove('show');
+  document.body.style.overflow = '';
+});
 </script>
 </body>
 </html>
