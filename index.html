@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
   :root{
     --navy:#14121F;
@@ -425,6 +426,12 @@
   .overlay-body{ max-width:900px; margin:0 auto; padding:0 24px 100px; }
 
   .regua-progress-card{ background:var(--lav); border-radius:14px; padding:18px 22px; margin:8px 0 30px; }
+  .regua-export-btn{
+    display:inline-flex; align-items:center; gap:8px; margin:0 0 28px; background:var(--green); color:#fff;
+    font-family:'Poppins',sans-serif; font-size:13px; font-weight:700; padding:11px 20px; border-radius:999px;
+    border:none; cursor:pointer; transition:background .2s;
+  }
+  .regua-export-btn:hover{ background:#339269; }
   .regua-progress-label{ font-size:12.5px; color:var(--muted); margin:0; }
 
   .voz-legend{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:4px; }
@@ -441,22 +448,25 @@
 
   .regua-msg{
     background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin-bottom:12px;
-    cursor:pointer; transition:border-color .2s, background .2s;
+    transition:border-color .2s, background .2s;
   }
   .regua-msg.validado{ border-color:var(--green); background:#F3FBF7; }
+  .regua-msg.negado{ border-color:var(--coral); background:#FDECE6; }
   .regua-msg-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:8px; }
   .regua-msg-momento{ font-size:12.5px; font-weight:700; color:var(--ink); flex:1; }
   .regua-voz-pill{
     display:inline-flex; align-items:center; gap:4px; font-size:10.5px; font-weight:700; padding:3px 9px;
     border-radius:999px; white-space:nowrap; flex-shrink:0;
   }
-  .regua-check{
-    width:22px; height:22px; border-radius:7px; border:2px solid var(--green); flex-shrink:0;
-    display:flex; align-items:center; justify-content:center; transition:background .2s;
+  .regua-msg-actions{ display:flex; gap:8px; margin-top:12px; }
+  .regua-action-btn{
+    font-family:'Poppins',sans-serif; font-size:11.5px; font-weight:600; padding:6px 14px; border-radius:999px;
+    border:1.5px solid var(--line); background:#fff; color:var(--muted); cursor:pointer; transition:all .15s;
   }
-  .regua-check svg{ opacity:0; transition:opacity .15s; width:13px; height:13px; }
-  .regua-msg.validado .regua-check{ background:var(--green); }
-  .regua-msg.validado .regua-check svg{ opacity:1; }
+  .regua-action-btn.accept:hover{ border-color:var(--green); color:var(--green); }
+  .regua-action-btn.reject:hover{ border-color:var(--coral); color:var(--coral); }
+  .regua-msg.validado .regua-action-btn.accept{ background:var(--green); border-color:var(--green); color:#fff; }
+  .regua-msg.negado .regua-action-btn.reject{ background:var(--coral); border-color:var(--coral); color:#fff; }
   .regua-msg-text{ font-size:13.5px; color:var(--ink); line-height:1.6; font-style:italic; margin:0; }
   .regua-msg-note{ margin-top:10px; background:var(--lav); border-radius:10px; padding:10px 14px; font-size:12px; color:var(--muted); line-height:1.5; }
   .regua-msg-note b{ color:var(--purple); font-style:normal; }
@@ -793,12 +803,12 @@
       <span class="partner-subhead-featured">Parcerias com negócios físicos, para crescer seguidores e clientes</span>
       <p class="partner-lead-in">Essas exigem presença física da Fernanda, mas têm potencial maior de conversão real em pacientes.</p>
       <div class="partner-item" style="margin-bottom:14px;">
-        <h4>Dia da Nutri na academia</h4>
-        <p>Parceria com a academia para a Fernanda fazer bioimpedância em um sábado, para todos os alunos que quiserem. Basta um cadastro com nome e telefone, e seguir a Fernanda no Instagram. É importante que a academia poste ao longo da semana anterior sobre o evento, e marque a Fernanda em todas as comunicações. Vale combinar, depois do evento, alguns posts em parceria com a academia também.</p>
+        <h4>Dia da Nutri na academia (ou loja de produtos naturais)</h4>
+        <p>Parceria com a academia para a Fernanda fazer bioimpedância em um sábado, para todos os alunos que quiserem. Basta um cadastro com nome e telefone, e seguir a Fernanda no Instagram. É importante que a academia poste ao longo da semana anterior sobre o evento, e marque a Fernanda em todas as comunicações. Vale combinar, depois do evento, alguns posts em parceria com a academia também. A mesma ideia funciona também em lojas de produtos naturais e a granel, que têm um público já alinhado com o posicionamento da Fernanda.</p>
       </div>
       <div class="partner-item" style="margin-bottom:14px;">
         <h4>Cartão ou QR Code no local da parceria</h4>
-        <p>Nos lugares onde a Fernanda fizer parceria (academias, consultórios de outros profissionais), deixar um cartão ou QR Code para as pessoas escanearem e já chamarem para uma avaliação gratuita.</p>
+        <p>Nos lugares onde a Fernanda fizer parceria (academias, consultórios de outros profissionais, lojas de produtos naturais e a granel), deixar um cartão ou QR Code para as pessoas escanearem e já chamarem para uma avaliação gratuita.</p>
       </div>
       <div class="partner-item">
         <h4>Parceria com academias: sorteio de consulta</h4>
@@ -812,6 +822,9 @@
         <p><b>Orientação da Vincla:</b> ela não deve induzir a compra, nem deixar o cupom/produto como a única opção apresentada ao paciente, o indicado é sempre citar como recomendação pessoal, ao lado de outras opções.</p>
       </div>
       <p class="partner-lead-in">Caminhos possíveis: cupom com farmácias de manipulação, ou com empresas de whey/suplementos nas quais ela se cadastra como parceira. O mais importante é que ela realmente conheça e goste do produto antes de recomendar, algumas marcas permitem pedir amostras para experimentar, e até mesmo para oferecer aos próprios pacientes.</p>
+
+      <span class="partner-subhead-featured">Eventos / Feiras</span>
+      <p class="partner-lead-in">Uma possibilidade de investimento para mais à frente, não uma prioridade imediata: participar de eventos e feiras (de saúde, bem-estar, esportivos ou de produtos naturais) como uma frente adicional de networking, parceria com marcas e produção de conteúdo para o Instagram, tudo em um único dia de presença física.</p>
 
       <span class="partner-subhead">Como medir se está funcionando</span>
       <ul class="partner-formats">
@@ -916,6 +929,7 @@
       <div class="indicators-item"><h4>Melhor formato, dia e horário</h4><p>Foto, Reel ou carrossel: o que performa melhor, e quando publicar para ter mais alcance.</p></div>
       <div class="indicators-item"><h4>Top e Bottom conteúdos</h4><p>As 5 publicações e os 5 Stories de melhor e pior desempenho no período.</p></div>
       <div class="indicators-item"><h4>Visitas ao perfil</h4><p>Quantas pessoas visitam o perfil a partir dos Stories e publicações.</p></div>
+      <div class="indicators-item"><h4>Perfil dos seguidores</h4><p>Gênero e idade de quem já segue e de quem chegou como novo seguidor, para entender se o público certo está sendo alcançado.</p></div>
       <div class="indicators-item"><h4>Base de pacientes atuais</h4><p>Trazer os pacientes que a Fernanda já atende hoje e adicionar como mais um indicador dentro do painel.</p></div>
     </div>
 
@@ -959,23 +973,18 @@
     <div class="grid2">
       <div class="deliver-card">
         <div class="deliver-icon" style="background:var(--coral);">🎨</div>
-        <h3>Identidade visual + logo</h3>
-        <p>3 propostas em 06/08, aprovação da Fernanda e possíveis ajustes, com entrega final do brand board completo (tipografia, patterns, paletas) em 11/08.</p>
+        <h3>Identidade visual + logo + Moodboard</h3>
+        <p>Propostas em 7 ou 8/08, aprovação da Fernanda e possíveis ajustes, com entrega final do brand board completo (tipografia, patterns, paletas) em 11/08.</p>
       </div>
       <div class="deliver-card">
         <div class="deliver-icon" style="background:var(--coral);">🧑‍🎨</div>
         <h3>Reunião de estilo com a Pry</h3>
-        <p>Fase 2 da consultoria de imagem, na semana de 03/08, com coerência entre imagem, expertise e posicionamento.</p>
+        <p>Fase 2 da consultoria de imagem, na semana de 03/08 (2 encontros), com coerência entre imagem, expertise e posicionamento.</p>
       </div>
       <div class="deliver-card">
         <div class="deliver-icon" style="background:var(--coral);">📊</div>
         <h3>Painel de indicadores</h3>
-        <p>Painel de acompanhamento de indicadores entregue até 11/08.</p>
-      </div>
-      <div class="deliver-card">
-        <div class="deliver-icon" style="background:var(--coral);">🗓️</div>
-        <h3>Reunião pré-shooting + planejamento de redes</h3>
-        <p>Em 14/08: alinhamento final antes da produção e planejamento de redes, preparando o terreno para o shooting do dia seguinte.</p>
+        <p>Painel de acompanhamento de indicadores entregue até 20/08.</p>
       </div>
     </div>
   </div>
@@ -1087,7 +1096,7 @@ insights.forEach((it, idx) => {
 // ---------------- RENDER TO-DOS DA FERNANDA (novo bloco) ----------------
 const fernandaTodos = [
   { text: 'Criar perfil no Doctoralia', date: 'até 25/07', status: 'done' },
-  { text: 'Criar Perfil da Empresa no Google', date: 'até 25/07', status: 'progress' },
+  { text: 'Criar Perfil da Empresa no Google', date: 'até 25/07', status: 'done' },
   { text: 'Criar perfil no Instagram', date: 'até 25/07', status: 'done' },
   { text: 'Configurar o Meta Business Suite', date: 'até 01/08' },
   { text: 'Configurar as mensagens automáticas do WhatsApp Business', date: 'até 20/08' },
@@ -1330,6 +1339,8 @@ onScroll();
       <p class="regua-progress-label" id="reguaProgressLabel"></p>
     </div>
 
+    <button type="button" id="exportReguaBtn" class="regua-export-btn">📥 Exportar validação em Excel</button>
+
     <span class="partner-subhead-featured">As quatro vozes deste documento</span>
     <p class="partner-lead-in">Cada mensagem é marcada com um destes tipos de voz, que indica quem, ou o quê, deve efetivamente enviá-la.</p>
     <div class="voz-legend" id="voz-legend-list"></div>
@@ -1357,6 +1368,8 @@ const reguaGroups = [
       { momento: 'Link pré-preenchido, site, Doctoralia, Google', voz: '⏱️', texto: 'Oi! Vi seu perfil e quero agendar uma consulta com você.' },
       { momento: 'Primeiro contato / fora do expediente', voz: '🤖', texto: 'Oi! 🤍 Que bom te ver por aqui. Esse é o WhatsApp da Fernanda Zanateli, nutricionista comportamental. Em breve alguém te responde. Se quiser, já conta um pouco do que você precisa que a gente já direciona certinho.' },
       { momento: 'Contato fora do horário de atendimento', voz: '🤖', texto: 'Sua mensagem chegou fora do nosso horário de atendimento (seg. a sex., 9h às 18h). Assim que abrirmos, você é a primeira da fila! Se quiser, já conta o motivo do contato para agilizar. 🤍' },
+      { momento: 'Explicação do sinal de 50%', voz: '⏱️', texto: 'Para confirmar o agendamento, pedimos um sinal de 50% do valor da consulta. Esse valor é abatido do valor final, cobrado após a consulta. Assim que o sinal for feito, sua consulta fica garantida!' },
+      { momento: 'Explicação do sinal para agendamento', voz: '⏱️', texto: 'Para confirmar seu horário, pedimos um sinal de 50% do valor da consulta. Esse valor é abatido do total, você paga só a diferença depois da consulta. 🤍' },
       { momento: 'Confirmação de agendamento', voz: '⏱️', texto: 'Consulta confirmada! 📅 [dia] às [horário], no formato online. O link de acesso chega até 1h antes do horário. Qualquer imprevisto, é só avisar por aqui.' },
       { momento: 'Lembrete véspera da consulta', voz: '👩‍💼', texto: 'Passando para lembrar: amanhã, [dia], às [horário], é sua consulta com a Fernanda 🤍 Vale separar um cantinho tranquilo e organizar o que quiser trazer para conversar.' },
       { momento: 'Lembrete no dia, poucas horas antes', voz: '🤖', texto: 'Hoje é dia de consulta! ⏰ Te esperamos às [horário]. Aqui está o link de acesso: [link]. Até já!' },
@@ -1418,12 +1431,12 @@ let reguaTotal = 0;
 reguaGroups.forEach(g => reguaTotal += g.messages.length);
 
 function updateReguaProgress(){
-  const done = document.querySelectorAll('.regua-msg.validado').length;
+  const done = document.querySelectorAll('.regua-msg.validado, .regua-msg.negado').length;
   reguaFill.style.width = (done / reguaTotal * 100) + '%';
-  reguaProgressLabel.textContent = `${done} de ${reguaTotal} textos validados`;
+  reguaProgressLabel.textContent = `${done} de ${reguaTotal} textos avaliados`;
 }
 
-reguaGroups.forEach(g => {
+reguaGroups.forEach((g, gi) => {
   const groupEl = document.createElement('div');
   groupEl.className = 'regua-group';
   const head = document.createElement('div');
@@ -1431,21 +1444,38 @@ reguaGroups.forEach(g => {
   head.innerHTML = `<h3>${g.title}</h3><p>${g.desc}</p>`;
   groupEl.appendChild(head);
 
-  g.messages.forEach(m => {
+  g.messages.forEach((m, mi) => {
     const info = VOZ_INFO[m.voz];
+    const msgId = `m-${gi}-${mi}`;
+    m._status = '';
+    m._group = g.title;
     const msgEl = document.createElement('div');
     msgEl.className = 'regua-msg';
+    msgEl.id = msgId;
     msgEl.innerHTML = `
       <div class="regua-msg-head">
         <span class="regua-msg-momento">${m.momento}</span>
         <span class="regua-voz-pill" style="background:${info.color}22; color:${info.color};">${m.voz} ${info.label}</span>
-        <span class="regua-check"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
       <p class="regua-msg-text">"${m.texto}"</p>
       ${m.nota ? `<div class="regua-msg-note"><b>Nota:</b> ${m.nota}</div>` : ''}
+      <div class="regua-msg-actions">
+        <button type="button" class="regua-action-btn accept">✓ Validado</button>
+        <button type="button" class="regua-action-btn reject">✕ Negado</button>
+      </div>
     `;
-    msgEl.addEventListener('click', () => {
-      msgEl.classList.toggle('validado');
+    const acceptBtn = msgEl.querySelector('.accept');
+    const rejectBtn = msgEl.querySelector('.reject');
+    acceptBtn.addEventListener('click', () => {
+      const isOn = msgEl.classList.contains('validado');
+      msgEl.classList.remove('validado', 'negado');
+      if (!isOn){ msgEl.classList.add('validado'); m._status = 'Validado'; } else { m._status = ''; }
+      updateReguaProgress();
+    });
+    rejectBtn.addEventListener('click', () => {
+      const isOn = msgEl.classList.contains('negado');
+      msgEl.classList.remove('validado', 'negado');
+      if (!isOn){ msgEl.classList.add('negado'); m._status = 'Negado'; } else { m._status = ''; }
       updateReguaProgress();
     });
     groupEl.appendChild(msgEl);
@@ -1460,6 +1490,23 @@ reguaRecomendacoes.forEach(t => {
   const li = document.createElement('li');
   li.textContent = t;
   reguaRecList.appendChild(li);
+});
+
+// Exportar validação em Excel
+document.getElementById('exportReguaBtn').addEventListener('click', () => {
+  const rows = [['Etapa', 'Texto', 'Validado', 'Negado']];
+  reguaGroups.forEach(g => {
+    g.messages.forEach(m => {
+      const validado = m._status === 'Validado' ? 1 : 0;
+      const negado = m._status === 'Negado' ? 1 : 0;
+      rows.push([g.title, m.texto, validado, negado]);
+    });
+  });
+  const ws = XLSX.utils.aoa_to_sheet(rows);
+  ws['!cols'] = [{wch:28},{wch:80},{wch:10},{wch:10}];
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Validação réguas');
+  XLSX.writeFile(wb, 'validacao_reguas_fernanda.xlsx');
 });
 
 // Abrir/fechar a página overlay
